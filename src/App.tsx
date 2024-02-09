@@ -1,15 +1,16 @@
-import { Box, Toolbar } from "@mui/material";
+import { Box } from "@mui/material";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import MessageExample from "./components/MessageExample";
+import NavigationBar from "./components/NavigationBar";
 
 const Dashboard = () => {
   return (
-    <Box>
-      <Header />
-      <Box sx={{ height: "100vh" }}>
-        <Toolbar />
-        <Box component="main">
+    <Box display="flex">
+      <NavigationBar />
+      <Box display="flex" flexDirection="column" flexGrow={1}>
+        <Header />
+        <Box component="main" flexGrow={1}>
           <MessageExample />
         </Box>
         <Footer />

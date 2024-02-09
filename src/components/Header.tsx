@@ -1,16 +1,9 @@
-import { AppBar, Box, Toolbar, Typography } from "@mui/material";
-import connectlyLogo from "/connectly.svg";
+import { AppBar, Toolbar, Typography } from "@mui/material";
 
 const Header = () => {
   return (
-    <AppBar color="default">
+    <AppBar color="default" position="static">
       <Toolbar>
-        <Box
-          component="img"
-          sx={{ marginRight: "36px" }}
-          src={connectlyLogo}
-          alt="Connectly logo"
-        />
         <Typography component="h1" variant="body1">
           Create a Campaign
         </Typography>
