@@ -20,11 +20,13 @@ type EditMessageProps = {
 };
 
 const bodyCharacterLimit = 1024;
+const footerCharacterLimit = 60;
 
 const EditMessage = ({ onClose }: EditMessageProps) => {
   const [bodyMessage, setBodyMessage] = useState("");
+  const [footerMessage, setFooterMessage] = useState("");
 
-  const renderBodyHelperMessage = () => (
+  const renderCharacterCount = (value: string, limit: number) => (
     <InputAdornment position="end">
       <span
         style={{
@@ -35,7 +37,7 @@ const EditMessage = ({ onClose }: EditMessageProps) => {
           lineHeight: "21px",
         }}
       >
-        {`${bodyMessage.length}/${bodyCharacterLimit}`}
+        {`${value.length}/${limit}`}
       </span>
     </InputAdornment>
   );
@@ -58,13 +60,15 @@ const EditMessage = ({ onClose }: EditMessageProps) => {
         <CollapsibleCard Icon={Photo} title="Header" info="This is the Header">
           <FormControl fullWidth>
             <Select
-              value=""
+              value="Image"
               fullWidth
               displayEmpty
               onChange={() => null}
-              inputProps={{ "aria-label": "Header image" }}
+              inputProps={{ "aria-label": "Headder media" }}
             >
-              <MenuItem value="">Image</MenuItem>
+              <MenuItem value="Image">Image</MenuItem>
+              <MenuItem value="Video">Video</MenuItem>
+              <MenuItem value="Document">Document</MenuItem>
             </Select>
             <FormHelperText sx={{ m: "10px 0" }}>
               Image size recommendation: 800 x 418 pixel.
@@ -95,9 +99,13 @@ const EditMessage = ({ onClose }: EditMessageProps) => {
                 maxLength: bodyCharacterLimit,
                 style: { marginBottom: 16 },
               },
-              endAdornment: renderBodyHelperMessage(),
+              endAdornment: renderCharacterCount(
+                bodyMessage,
+                bodyCharacterLimit
+              ),
             }}
           />
+          <Button>Add variable</Button>
         </CollapsibleCard>
 
         <CollapsibleCard
@@ -105,7 +113,25 @@ const EditMessage = ({ onClose }: EditMessageProps) => {
           title="Footer text"
           info="This is the Footer text"
         >
-          Test
+          <TextField
+            multiline
+            fullWidth
+            rows={2}
+            value={footerMessage}
+            onChange={(evt) => setFooterMessage(evt.target.value)}
+            sx={{ position: "relative" }}
+            placeholder="Reply 'STOP' to opt out"
+            InputProps={{
+              inputProps: {
+                maxLength: footerCharacterLimit,
+                style: { marginBottom: 16 },
+              },
+              endAdornment: renderCharacterCount(
+                footerMessage,
+                footerCharacterLimit
+              ),
+            }}
+          />
         </CollapsibleCard>
 
         <CollapsibleCard
