@@ -1,19 +1,24 @@
+import { useState } from "react";
 import {
   Box,
   Button,
   FormControl,
   FormHelperText,
   IconButton,
-  InputAdornment,
   MenuItem,
   Select,
-  TextField,
   Typography,
 } from "@mui/material";
-import { Close, Crop75, Photo, TextFields } from "@mui/icons-material";
+import {
+  Close,
+  Crop75,
+  DeleteOutline,
+  Photo,
+  TextFields,
+} from "@mui/icons-material";
 import CollapsibleCard from "./CollapsibleCard";
 import VisuallyHiddenInput from "./VisuallyHiddenInput.styled";
-import { useState } from "react";
+import TextFieldWithCounter from "./TextFieldWithCounter";
 
 type EditMessageProps = {
   onClose: () => void;
@@ -21,26 +26,20 @@ type EditMessageProps = {
 
 const bodyCharacterLimit = 1024;
 const footerCharacterLimit = 60;
+const buttonCharacterLimit = 25;
 
 const EditMessage = ({ onClose }: EditMessageProps) => {
-  const [bodyMessage, setBodyMessage] = useState("");
-  const [footerMessage, setFooterMessage] = useState("");
+  const [bodyMessage, setBodyMessage] = useState<string>("");
+  const [footerMessage, setFooterMessage] = useState<string>("");
+  const [buttons, setButtons] = useState<string[]>([]);
 
-  const renderCharacterCount = (value: string, limit: number) => (
-    <InputAdornment position="end">
-      <span
-        style={{
-          position: "absolute",
-          bottom: 12,
-          right: 12,
-          fontSize: "14px",
-          lineHeight: "21px",
-        }}
-      >
-        {`${value.length}/${limit}`}
-      </span>
-    </InputAdornment>
-  );
+  const updateButton = (value: string, index: number) => {
+    setButtons((prev) => prev.map((btn, i) => (i === index ? value : btn)));
+  };
+
+  const removeButton = (index: number) => {
+    setButtons(buttons.filter((_, i) => i !== index));
+  };
 
   return (
     <>
@@ -86,26 +85,15 @@ const EditMessage = ({ onClose }: EditMessageProps) => {
           info="This is the Body message"
           required
         >
-          <TextField
-            multiline
-            fullWidth
+          <TextFieldWithCounter
             rows={8}
+            multiline
             value={bodyMessage}
             onChange={(evt) => setBodyMessage(evt.target.value)}
-            sx={{ position: "relative" }}
             placeholder="👋 Hi {{1}}, we just kicked off our summer sale! ☀️☀️ Wanna hear more? "
-            InputProps={{
-              inputProps: {
-                maxLength: bodyCharacterLimit,
-                style: { marginBottom: 16 },
-              },
-              endAdornment: renderCharacterCount(
-                bodyMessage,
-                bodyCharacterLimit
-              ),
-            }}
+            limit={bodyCharacterLimit}
           />
-          <Button>Add variable</Button>
+          <Button sx={{ mt: 1 }}>Add variable</Button>
         </CollapsibleCard>
 
         <CollapsibleCard
@@ -113,24 +101,11 @@ const EditMessage = ({ onClose }: EditMessageProps) => {
           title="Footer text"
           info="This is the Footer text"
         >
-          <TextField
-            multiline
-            fullWidth
-            rows={2}
+          <TextFieldWithCounter
             value={footerMessage}
             onChange={(evt) => setFooterMessage(evt.target.value)}
-            sx={{ position: "relative" }}
             placeholder="Reply 'STOP' to opt out"
-            InputProps={{
-              inputProps: {
-                maxLength: footerCharacterLimit,
-                style: { marginBottom: 16 },
-              },
-              endAdornment: renderCharacterCount(
-                footerMessage,
-                footerCharacterLimit
-              ),
-            }}
+            limit={footerCharacterLimit}
           />
         </CollapsibleCard>
 
@@ -139,7 +114,32 @@ const EditMessage = ({ onClose }: EditMessageProps) => {
           title="Buttons"
           info="This is the Buttons"
         >
-          Test
+          {buttons.map((buttonMessage, i) => (
+            <Box key={i}>
+              <Box
+                display="flex"
+                justifyContent="space-between"
+                alignItems="center"
+              >
+                <Typography>Button {i + 1}</Typography>
+                <IconButton onClick={() => removeButton(i)}>
+                  <DeleteOutline />
+                </IconButton>
+              </Box>
+              <TextFieldWithCounter
+                value={buttonMessage}
+                onChange={(evt) => updateButton(evt.target.value, i)}
+                placeholder="Enter text"
+                limit={buttonCharacterLimit}
+                sx={{ mb: 4 }}
+              />
+            </Box>
+          ))}
+          {buttons.length < 3 && (
+            <Button onClick={() => setButtons((prev) => [...prev, ""])}>
+              Add button
+            </Button>
+          )}
         </CollapsibleCard>
 
         <Button fullWidth variant="contained">

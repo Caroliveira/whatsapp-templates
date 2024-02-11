@@ -80,7 +80,7 @@ const CollapsibleCard = ({
     <Card variant="outlined" sx={{ borderRadius: 2, mb: 6 }}>
       <CardHeader title={renderCardTitle()} action={renderExpandToggle()} />
       <Collapse in={required || expanded} timeout="auto" unmountOnExit>
-        <CardContent>{children}</CardContent>
+        <CardContent sx={{ py: 0, px: 6 }}>{children}</CardContent>
       </Collapse>
     </Card>
   );
