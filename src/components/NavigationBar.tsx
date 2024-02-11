@@ -14,7 +14,12 @@ const NavigationBar = () => {
       color="white"
       sx={{ backgroundColor: grey["900"] }}
     >
-      <Box display="flex" flexDirection="column" alignItems="center">
+      <Box
+        component="nav"
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+      >
         <Toolbar>
           <Box
             component="img"
