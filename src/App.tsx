@@ -7,7 +7,7 @@ import { drawerWidth } from "./components/MiniDrawer.styled";
 
 const Dashboard = () => {
   return (
-    <Box display="flex">
+    <Box display="flex" overflow="hidden">
       <NavigationBar />
       <Box display="flex" flexDirection="column" flexGrow={1}>
         <Header />

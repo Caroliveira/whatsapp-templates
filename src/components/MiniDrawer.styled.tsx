@@ -6,7 +6,7 @@ const xsMiniDrawerWidth = 42;
 
 const openedMixin = (theme: Theme): CSSObject => ({
   left: xsMiniDrawerWidth,
-  width: drawerWidth,
+  width: `calc(100% - ${xsMiniDrawerWidth}px)`,
   boxSizing: "border-box",
   transition: theme.transitions.create("width", {
     easing: theme.transitions.easing.sharp,
@@ -14,6 +14,7 @@ const openedMixin = (theme: Theme): CSSObject => ({
   }),
   overflowX: "hidden",
   [theme.breakpoints.up("sm")]: {
+    width: drawerWidth,
     left: miniDrawerWidth,
   },
 });
