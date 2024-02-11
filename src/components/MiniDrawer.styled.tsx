@@ -38,7 +38,6 @@ const MiniDrawer = styled(Drawer, {
 })(({ theme, open }) => ({
   width: drawerWidth,
   flexShrink: 0,
-  whiteSpace: "nowrap",
   boxSizing: "border-box",
   padding: 24,
   ...(open && {

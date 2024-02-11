@@ -44,19 +44,21 @@ const Sidebar = () => {
       <Box
         display="flex"
         alignItems={isMiniDrawer ? "center" : "flex-start"}
-        justifyContent={isMiniDrawer ? "center" : "space-between"}
+        justifyContent={"center"}
         padding={isMiniDrawer ? 0 : 6}
         height="100%"
       >
         {isMiniDrawer ? (
           <Button
             onClick={handleDrawerToggle}
-            sx={{ transform: "rotate(-90deg)" }}
+            sx={{ transform: "rotate(-90deg)", whiteSpace: "nowrap" }}
           >
             Edit Message
           </Button>
         ) : (
-          <EditMessage onClose={handleDrawerToggle} />
+          <Box flex={1}>
+            <EditMessage onClose={handleDrawerToggle} />
+          </Box>
         )}
       </Box>
     </MiniDrawer>
