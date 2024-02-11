@@ -21,7 +21,7 @@ type CollapsibleCardProps = {
   title: string;
   info?: string;
   required?: boolean;
-  content: ReactNode;
+  children: ReactNode;
 };
 
 const CollapsibleCard = ({
@@ -29,7 +29,7 @@ const CollapsibleCard = ({
   title,
   info,
   required,
-  content,
+  children,
 }: CollapsibleCardProps) => {
   const [expanded, setExpanded] = useState(false);
 
@@ -77,10 +77,10 @@ const CollapsibleCard = ({
   };
 
   return (
-    <Card variant="outlined" sx={{ borderRadius: 2 }}>
+    <Card variant="outlined" sx={{ borderRadius: 2, mb: 6 }}>
       <CardHeader title={renderCardTitle()} action={renderExpandToggle()} />
       <Collapse in={required || expanded} timeout="auto" unmountOnExit>
-        <CardContent>{content}</CardContent>
+        <CardContent>{children}</CardContent>
       </Collapse>
     </Card>
   );

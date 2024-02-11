@@ -5,14 +5,16 @@ import MessageBubble from "./MessageBubble.styled";
 
 const MessageExample = () => {
   return (
-    <Paper sx={{ width: 304, borderRadius: 2, padding: 3 }}>
+    <Paper sx={{ width: 304, borderRadius: 2, p: 3 }}>
       <Box display="flex" alignItems="center" sx={{ pb: 3 }}>
         <Avatar sx={{ backgroundColor: indigo["300"], mr: 2 }}>
           <Message sx={{ color: "white" }} />
         </Avatar>
-        <Typography variant="h6">Message Example</Typography>
+        <Typography variant="h6" component="h2">
+          Message Example
+        </Typography>
       </Box>
-      <Box padding={3} borderRadius={2} sx={{ backgroundColor: grey["100"] }}>
+      <Box p={3} borderRadius={2} sx={{ backgroundColor: grey["100"] }}>
         <MessageBubble>
           <Typography variant="body1">Header</Typography>
         </MessageBubble>
