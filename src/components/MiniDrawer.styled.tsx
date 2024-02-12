@@ -41,14 +41,9 @@ const MiniDrawer = styled(Drawer, {
   flexShrink: 0,
   boxSizing: "border-box",
   padding: 24,
-  ...(open && {
-    ...openedMixin(theme),
-    "& .MuiDrawer-paper": openedMixin(theme),
-  }),
-  ...(!open && {
-    ...closedMixin(theme),
-    "& .MuiDrawer-paper": closedMixin(theme),
-  }),
+  ...(open
+    ? { ...openedMixin(theme), "& .MuiDrawer-paper": openedMixin(theme) }
+    : { ...closedMixin(theme), "& .MuiDrawer-paper": closedMixin(theme) }),
 }));
 
 export default MiniDrawer;

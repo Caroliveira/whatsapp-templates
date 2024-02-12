@@ -33,10 +33,6 @@ const CollapsibleCard = ({
 }: CollapsibleCardProps) => {
   const [expanded, setExpanded] = useState(false);
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
-
   const renderCardTitle = () => (
     <Box display="flex" alignItems="center">
       <Icon color="action" />
@@ -69,7 +65,7 @@ const CollapsibleCard = ({
     return (
       <Switch
         checked={expanded}
-        onClick={handleExpandClick}
+        onClick={() => setExpanded(!expanded)}
         aria-expanded={expanded}
         aria-label="show more"
       />
