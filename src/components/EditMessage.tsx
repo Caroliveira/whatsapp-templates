@@ -7,6 +7,7 @@ import {
   IconButton,
   MenuItem,
   Select,
+  SelectChangeEvent,
   Typography,
 } from "@mui/material";
 import {
@@ -23,8 +24,10 @@ import {
   bodyMessageAtom,
   buttonsAtom,
   footerMessageAtom,
+  headerTypeAtom,
   sendMessageAtom,
 } from "../atoms/messageAtoms";
+import { ComponentParameterEnum } from "../types/enums";
 
 type EditMessageProps = {
   onClose: () => void;
@@ -35,10 +38,15 @@ const footerCharacterLimit = 60;
 const buttonCharacterLimit = 25;
 
 const EditMessage = ({ onClose }: EditMessageProps) => {
+  const [headerType, setHeaderType] = useAtom(headerTypeAtom);
   const [bodyMessage, setBodyMessage] = useAtom(bodyMessageAtom);
   const [footerMessage, setFooterMessage] = useAtom(footerMessageAtom);
   const [buttons, setButtons] = useAtom(buttonsAtom);
   const [, sendMessage] = useAtom(sendMessageAtom);
+
+  const updateHeaderType = (evt: SelectChangeEvent<ComponentParameterEnum>) => {
+    setHeaderType(evt.target.value as ComponentParameterEnum);
+  };
 
   const updateButton = (value: string, index: number) => {
     setButtons((prev) => prev.map((btn, i) => (i === index ? value : btn)));
@@ -71,15 +79,17 @@ const EditMessage = ({ onClose }: EditMessageProps) => {
         <CollapsibleCard Icon={Photo} title="Header" info="This is the Header">
           <FormControl fullWidth>
             <Select
-              value="Image"
+              value={headerType}
               fullWidth
               displayEmpty
-              onChange={() => null}
+              onChange={updateHeaderType}
               inputProps={{ "aria-label": "Headder media" }}
             >
-              <MenuItem value="Image">Image</MenuItem>
-              <MenuItem value="Video">Video</MenuItem>
-              <MenuItem value="Document">Document</MenuItem>
+              <MenuItem value={ComponentParameterEnum.Image}>Image</MenuItem>
+              <MenuItem value={ComponentParameterEnum.Video}>Video</MenuItem>
+              <MenuItem value={ComponentParameterEnum.Document}>
+                Document
+              </MenuItem>
             </Select>
             <FormHelperText sx={{ m: "10px 0" }}>
               Image size recommendation: 800 x 418 pixel.
