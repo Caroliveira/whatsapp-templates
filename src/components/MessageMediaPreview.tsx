@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Box } from "@mui/material";
-import { MessageDivider, MessageTitle } from "./MessageExample.styled";
 import { MessageContext } from "../context/messageContext";
+import { MessageDivider, MessageTitle } from "./MessageExample.styled";
 
 const mediaStyle = {
   width: "100%",

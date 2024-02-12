@@ -1,3 +1,4 @@
+import { ReactNode, useContext } from "react";
 import {
   Alert,
   AlertTitle,
@@ -11,10 +12,9 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import { ReactNode, useContext } from "react";
 import { Info } from "@mui/icons-material";
-import { OverridableComponent } from "@mui/material/OverridableComponent";
 import { grey } from "@mui/material/colors";
+import { OverridableComponent } from "@mui/material/OverridableComponent";
 import { HasComponentType, MessageContext } from "../context/messageContext";
 
 type RequiredComponentType =

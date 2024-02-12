@@ -1,9 +1,9 @@
+import { useContext } from "react";
 import { Box, Button, IconButton, Typography } from "@mui/material";
 import { Crop75, DeleteOutline } from "@mui/icons-material";
-import CollapsibleCard from "./CollapsibleCard";
-import TextFieldWithCounter from "./TextFieldWithCounter";
-import { useContext } from "react";
 import { MessageContext } from "../context/messageContext";
+import TextFieldWithCounter from "./TextFieldWithCounter";
+import CollapsibleCard from "./CollapsibleCard";
 
 const buttonCharacterLimit = 25;
 

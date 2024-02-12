@@ -1,13 +1,13 @@
+import { useContext } from "react";
 import { Box, Button, IconButton, Typography } from "@mui/material";
 import { Close, TextFields } from "@mui/icons-material";
-import CollapsibleCard from "./CollapsibleCard";
 import TextFieldWithCounter from "./TextFieldWithCounter";
-import { useContext } from "react";
 import { MessageContext } from "../context/messageContext";
 import generateTemplate from "../utils/generateTemplate";
 import sendMessageApi from "../services/messageApi";
-import EditMessageHeader from "./EditMessageHeader";
 import EditMessageButtons from "./EditMessageButtons";
+import EditMessageHeader from "./EditMessageHeader";
+import CollapsibleCard from "./CollapsibleCard";
 
 const bodyCharacterLimit = 1024;
 const footerCharacterLimit = 60;

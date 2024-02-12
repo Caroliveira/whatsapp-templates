@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import {
   Box,
   Button,
@@ -10,11 +11,10 @@ import {
   Typography,
 } from "@mui/material";
 import { DeleteOutline, Photo } from "@mui/icons-material";
-import CollapsibleCard from "./CollapsibleCard";
-import VisuallyHiddenInput from "./VisuallyHiddenInput.styled";
 import { ComponentParameterEnum } from "../utils/enums";
-import { useContext } from "react";
 import { MessageContext } from "../context/messageContext";
+import VisuallyHiddenInput from "./VisuallyHiddenInput.styled";
+import CollapsibleCard from "./CollapsibleCard";
 
 type MediaOptiosType = {
   [key in ComponentParameterEnum]?: { name: string; accept: string };
@@ -61,7 +61,7 @@ const EditMessageHeader = () => {
       </FormControl>
       <Box display="flex" alignItems="center">
         <Button component="label" variant="outlined">
-          Upload Image
+          Upload {headerType}
           <VisuallyHiddenInput
             type="file"
             accept={mediaOptions[headerType]?.accept}
