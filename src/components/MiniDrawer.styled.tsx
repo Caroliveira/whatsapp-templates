@@ -1,6 +1,6 @@
 import { CSSObject, Drawer, Theme, styled } from "@mui/material";
 
-export const drawerWidth = 360;
+export const drawerWidth = 368;
 const miniDrawerWidth = 50;
 const xsMiniDrawerWidth = 42;
 
