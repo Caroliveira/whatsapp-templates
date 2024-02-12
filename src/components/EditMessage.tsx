@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useAtom } from "jotai";
 import {
   Box,
   Button,
@@ -19,6 +19,12 @@ import {
 import CollapsibleCard from "./CollapsibleCard";
 import VisuallyHiddenInput from "./VisuallyHiddenInput.styled";
 import TextFieldWithCounter from "./TextFieldWithCounter";
+import {
+  bodyMessageAtom,
+  buttonsAtom,
+  footerMessageAtom,
+  sendMessageAtom,
+} from "../atoms/messageAtoms";
 
 type EditMessageProps = {
   onClose: () => void;
@@ -29,9 +35,10 @@ const footerCharacterLimit = 60;
 const buttonCharacterLimit = 25;
 
 const EditMessage = ({ onClose }: EditMessageProps) => {
-  const [bodyMessage, setBodyMessage] = useState<string>("");
-  const [footerMessage, setFooterMessage] = useState<string>("");
-  const [buttons, setButtons] = useState<string[]>([]);
+  const [bodyMessage, setBodyMessage] = useAtom(bodyMessageAtom);
+  const [footerMessage, setFooterMessage] = useAtom(footerMessageAtom);
+  const [buttons, setButtons] = useAtom(buttonsAtom);
+  const [, sendMessage] = useAtom(sendMessageAtom);
 
   const updateButton = (value: string, index: number) => {
     setButtons((prev) => prev.map((btn, i) => (i === index ? value : btn)));
@@ -39,6 +46,11 @@ const EditMessage = ({ onClose }: EditMessageProps) => {
 
   const removeButton = (index: number) => {
     setButtons(buttons.filter((_, i) => i !== index));
+  };
+
+  const handleSave = async (evt: React.FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+    sendMessage();
   };
 
   return (
@@ -55,7 +67,7 @@ const EditMessage = ({ onClose }: EditMessageProps) => {
         Content
       </Typography>
 
-      <Box component="form">
+      <Box component="form" onSubmit={handleSave}>
         <CollapsibleCard Icon={Photo} title="Header" info="This is the Header">
           <FormControl fullWidth>
             <Select
@@ -142,7 +154,7 @@ const EditMessage = ({ onClose }: EditMessageProps) => {
           )}
         </CollapsibleCard>
 
-        <Button fullWidth variant="contained">
+        <Button fullWidth variant="contained" type="submit">
           Save
         </Button>
         <Button fullWidth variant="outlined" sx={{ mt: 3, mb: 6 }}>

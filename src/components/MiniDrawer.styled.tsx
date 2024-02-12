@@ -17,6 +17,14 @@ const openedMixin = (theme: Theme): CSSObject => ({
     width: drawerWidth,
     left: miniDrawerWidth,
   },
+  "&::-webkit-scrollbar": {
+    width: 6,
+    borderRadius: 8,
+  },
+  "&::-webkit-scrollbar-thumb": {
+    borderRadius: 8,
+    backgroundColor: "rgba(0, 0, 0, 0.3)",
+  },
 });
 
 const closedMixin = (theme: Theme): CSSObject => ({
