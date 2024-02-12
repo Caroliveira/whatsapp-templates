@@ -13,6 +13,7 @@ import {
   buttonsAtom,
   footerMessageAtom,
 } from "../atoms/messageAtoms";
+import MessageMediaPreview from "./MessageMediaPreview";
 
 const MessageExample = () => {
   const [bodyMessage] = useAtom(bodyMessageAtom);
@@ -31,6 +32,7 @@ const MessageExample = () => {
       </Box>
       <Box p={3} borderRadius={2} sx={{ backgroundColor: grey["100"] }}>
         <MessageBubble>
+          <MessageMediaPreview />
           <MessageTitle>Body message</MessageTitle>
           <Typography variant="body2">{bodyMessage}</Typography>
           {footerMessage && (
@@ -44,7 +46,7 @@ const MessageExample = () => {
           )}
         </MessageBubble>
         {buttons.map((btn, i) => (
-          <MessageButton key={i} fullWidth>
+          <MessageButton key={`messageExampleBtn${i}`} fullWidth>
             {btn}
           </MessageButton>
         ))}

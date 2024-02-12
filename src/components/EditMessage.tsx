@@ -24,6 +24,7 @@ import {
   bodyMessageAtom,
   buttonsAtom,
   footerMessageAtom,
+  headerMediaAtom,
   headerTypeAtom,
   sendMessageAtom,
 } from "../atoms/messageAtoms";
@@ -37,8 +38,17 @@ const bodyCharacterLimit = 1024;
 const footerCharacterLimit = 60;
 const buttonCharacterLimit = 25;
 
+const mediaOptions: {
+  [key in ComponentParameterEnum]?: { name: string; accept: string };
+} = {
+  [ComponentParameterEnum.Image]: { name: "Image", accept: "image/*" },
+  [ComponentParameterEnum.Video]: { name: "Video", accept: "video/*" },
+  [ComponentParameterEnum.Document]: { name: "Document", accept: ".pdf" },
+};
+
 const EditMessage = ({ onClose }: EditMessageProps) => {
   const [headerType, setHeaderType] = useAtom(headerTypeAtom);
+  const [headerMedia, setHeaderMedia] = useAtom(headerMediaAtom);
   const [bodyMessage, setBodyMessage] = useAtom(bodyMessageAtom);
   const [footerMessage, setFooterMessage] = useAtom(footerMessageAtom);
   const [buttons, setButtons] = useAtom(buttonsAtom);
@@ -85,20 +95,43 @@ const EditMessage = ({ onClose }: EditMessageProps) => {
               onChange={updateHeaderType}
               inputProps={{ "aria-label": "Headder media" }}
             >
-              <MenuItem value={ComponentParameterEnum.Image}>Image</MenuItem>
-              <MenuItem value={ComponentParameterEnum.Video}>Video</MenuItem>
-              <MenuItem value={ComponentParameterEnum.Document}>
-                Document
-              </MenuItem>
+              {Object.entries(mediaOptions).map(([key, value]) => (
+                <MenuItem key={key} value={key}>
+                  {value.name}
+                </MenuItem>
+              ))}
             </Select>
             <FormHelperText sx={{ m: "10px 0" }}>
               Image size recommendation: 800 x 418 pixel.
             </FormHelperText>
           </FormControl>
-          <Button component="label" variant="outlined">
-            Upload Image
-            <VisuallyHiddenInput type="file" />
-          </Button>
+          <Box display="flex" alignItems="center">
+            <Button component="label" variant="outlined">
+              Upload Image
+              <VisuallyHiddenInput
+                type="file"
+                accept={mediaOptions[headerType]?.accept}
+                onChange={(evt) => setHeaderMedia(evt.target.files?.[0])}
+              />
+            </Button>
+            <Typography
+              ml={2}
+              flex={1}
+              textOverflow="ellipsis"
+              overflow={"hidden"}
+              maxWidth={100}
+            >
+              {headerMedia?.name}
+            </Typography>
+            {headerMedia && (
+              <IconButton
+                size="small"
+                onClick={() => setHeaderMedia(undefined)}
+              >
+                <DeleteOutline />
+              </IconButton>
+            )}
+          </Box>
         </CollapsibleCard>
 
         <CollapsibleCard
@@ -138,7 +171,7 @@ const EditMessage = ({ onClose }: EditMessageProps) => {
           info="This is the Buttons"
         >
           {buttons.map((buttonMessage, i) => (
-            <Box key={i}>
+            <Box key={`editMessageBtn${i}`}>
               <Box
                 display="flex"
                 justifyContent="space-between"

@@ -5,6 +5,7 @@ import { ComponentParameterEnum, ComponentTypeEnum } from "../types/enums";
 export const headerTypeAtom = atom<ComponentParameterEnum>(
   ComponentParameterEnum.Image
 );
+export const headerMediaAtom = atom<File | undefined>(undefined);
 export const bodyMessageAtom = atom<string>("");
 export const footerMessageAtom = atom<string>("");
 export const buttonsAtom = atom<string[]>([]);
