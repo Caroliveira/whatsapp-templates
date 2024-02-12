@@ -1,8 +1,13 @@
 import { useAtom } from "jotai";
-import { Avatar, Box, Button, Paper, Typography } from "@mui/material";
+import { Avatar, Box, Paper, Typography } from "@mui/material";
 import { Message } from "@mui/icons-material";
 import { grey, indigo } from "@mui/material/colors";
-import MessageBubble from "./MessageBubble.styled";
+import {
+  MessageBubble,
+  MessageButton,
+  MessageDivider,
+  MessageTitle,
+} from "./MessageExample.styled";
 import {
   bodyMessageAtom,
   buttonsAtom,
@@ -26,11 +31,20 @@ const MessageExample = () => {
       </Box>
       <Box p={3} borderRadius={2} sx={{ backgroundColor: grey["100"] }}>
         <MessageBubble>
-          <Typography variant="body1">{bodyMessage}</Typography>
-          <Typography variant="body1">{footerMessage}</Typography>
+          <MessageTitle>Body message</MessageTitle>
+          <Typography variant="body2">{bodyMessage}</Typography>
+          {footerMessage && (
+            <>
+              <MessageDivider />
+              <MessageTitle>Footer</MessageTitle>
+              <Typography variant="body2" color="gray">
+                {footerMessage}
+              </Typography>
+            </>
+          )}
         </MessageBubble>
         {buttons.map((btn) => (
-          <Button fullWidth>{btn}</Button>
+          <MessageButton fullWidth>{btn}</MessageButton>
         ))}
       </Box>
     </Paper>

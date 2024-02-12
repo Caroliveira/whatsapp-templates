@@ -100,9 +100,10 @@ const EditMessage = ({ onClose }: EditMessageProps) => {
           <TextFieldWithCounter
             rows={8}
             multiline
+            required
             value={bodyMessage}
             onChange={(evt) => setBodyMessage(evt.target.value)}
-            placeholder="👋 Hi {{1}}, we just kicked off our summer sale! ☀️☀️ Wanna hear more? "
+            placeholder="Enter text"
             limit={bodyCharacterLimit}
           />
           <Button sx={{ mt: 1 }}>Add variable</Button>
@@ -116,7 +117,7 @@ const EditMessage = ({ onClose }: EditMessageProps) => {
           <TextFieldWithCounter
             value={footerMessage}
             onChange={(evt) => setFooterMessage(evt.target.value)}
-            placeholder="Reply 'STOP' to opt out"
+            placeholder="Enter text"
             limit={footerCharacterLimit}
           />
         </CollapsibleCard>

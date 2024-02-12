@@ -7,7 +7,10 @@ import App from "./App.tsx";
 
 const theme = createTheme({
   spacing: 4,
-  palette: { background: { default: blueGrey["50"] } },
+  palette: {
+    primary: { main: "#007DFF" },
+    background: { default: blueGrey["50"] },
+  },
 });
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
