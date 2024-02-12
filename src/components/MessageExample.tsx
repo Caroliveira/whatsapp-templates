@@ -43,8 +43,10 @@ const MessageExample = () => {
             </>
           )}
         </MessageBubble>
-        {buttons.map((btn) => (
-          <MessageButton fullWidth>{btn}</MessageButton>
+        {buttons.map((btn, i) => (
+          <MessageButton key={i} fullWidth>
+            {btn}
+          </MessageButton>
         ))}
       </Box>
     </Paper>
