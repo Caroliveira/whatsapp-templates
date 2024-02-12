@@ -1,4 +1,3 @@
-import { useAtom } from "jotai";
 import { Avatar, Box, Paper, Typography } from "@mui/material";
 import { Message } from "@mui/icons-material";
 import { grey, indigo } from "@mui/material/colors";
@@ -8,17 +7,12 @@ import {
   MessageDivider,
   MessageTitle,
 } from "./MessageExample.styled";
-import {
-  bodyMessageAtom,
-  buttonsAtom,
-  footerMessageAtom,
-} from "../atoms/messageAtoms";
 import MessageMediaPreview from "./MessageMediaPreview";
+import { useContext } from "react";
+import { MessageContext } from "../context/messageContext";
 
 const MessageExample = () => {
-  const [bodyMessage] = useAtom(bodyMessageAtom);
-  const [footerMessage] = useAtom(footerMessageAtom);
-  const [buttons] = useAtom(buttonsAtom);
+  const { message } = useContext(MessageContext);
 
   return (
     <Paper sx={{ width: 304, borderRadius: 2, p: 3 }}>
@@ -34,18 +28,18 @@ const MessageExample = () => {
         <MessageBubble>
           <MessageMediaPreview />
           <MessageTitle>Body message</MessageTitle>
-          <Typography variant="body2">{bodyMessage}</Typography>
-          {footerMessage && (
+          <Typography variant="body2">{message.body}</Typography>
+          {message.footer && (
             <>
               <MessageDivider />
               <MessageTitle>Footer</MessageTitle>
               <Typography variant="body2" color="gray">
-                {footerMessage}
+                {message.footer}
               </Typography>
             </>
           )}
         </MessageBubble>
-        {buttons.map((btn, i) => (
+        {message.buttons.map((btn, i) => (
           <MessageButton key={`messageExampleBtn${i}`} fullWidth>
             {btn}
           </MessageButton>

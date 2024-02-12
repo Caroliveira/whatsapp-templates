@@ -1,4 +1,4 @@
-import { ComponentTypeEnum, ComponentParameterEnum } from "../types/enums";
+import { ComponentTypeEnum, ComponentParameterEnum } from "../utils/enums";
 
 const ACCESS_TOKEN = "";
 const FROM_PHONE_NUMBER_ID = "";
@@ -11,7 +11,7 @@ export type TemplateType = {
     type: ComponentTypeEnum;
     parameters: {
       type: ComponentParameterEnum;
-      image?: { link: string };
+      image?: File;
       text?: string;
     }[];
   }[];

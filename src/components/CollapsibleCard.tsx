@@ -11,18 +11,22 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import { ReactNode, useState } from "react";
+import { ReactNode, useContext } from "react";
 import { Info } from "@mui/icons-material";
 import { OverridableComponent } from "@mui/material/OverridableComponent";
 import { grey } from "@mui/material/colors";
+import { HasComponentType, MessageContext } from "../context/messageContext";
+
+type RequiredComponentType =
+  | { required: true; component?: never }
+  | { required?: never; component: keyof HasComponentType };
 
 type CollapsibleCardProps = {
   Icon: OverridableComponent<SvgIconTypeMap> & { muiName: string };
   title: string;
   info?: string;
-  required?: boolean;
   children: ReactNode;
-};
+} & RequiredComponentType;
 
 const CollapsibleCard = ({
   Icon,
@@ -30,8 +34,10 @@ const CollapsibleCard = ({
   info,
   required,
   children,
+  component,
 }: CollapsibleCardProps) => {
-  const [expanded, setExpanded] = useState(false);
+  const { hasComponent, setHasComponent } = useContext(MessageContext);
+  const expanded = required || hasComponent[component];
 
   const renderCardTitle = () => (
     <Box display="flex" alignItems="center">
@@ -65,7 +71,7 @@ const CollapsibleCard = ({
     return (
       <Switch
         checked={expanded}
-        onClick={() => setExpanded(!expanded)}
+        onClick={() => setHasComponent({ [component]: !expanded })}
         aria-expanded={expanded}
         aria-label="show more"
       />
@@ -75,7 +81,7 @@ const CollapsibleCard = ({
   return (
     <Card variant="outlined" sx={{ borderRadius: 2, mb: 6 }}>
       <CardHeader title={renderCardTitle()} action={renderExpandToggle()} />
-      <Collapse in={required || expanded} timeout="auto" unmountOnExit>
+      <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent sx={{ py: 0, px: 6 }}>{children}</CardContent>
       </Collapse>
     </Card>

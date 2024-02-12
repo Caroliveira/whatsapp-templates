@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
-import { useAtom } from "jotai";
+import { useContext, useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import { MessageDivider, MessageTitle } from "./MessageExample.styled";
-import { headerMediaAtom } from "../atoms/messageAtoms";
+import { MessageContext } from "../context/messageContext";
 
 const mediaStyle = {
   width: "100%",
@@ -11,8 +10,9 @@ const mediaStyle = {
 };
 
 const MessageMediaPreview = () => {
-  const [headerMedia] = useAtom(headerMediaAtom);
   const [previewUrl, setPreviewUrl] = useState("");
+  const { message } = useContext(MessageContext);
+  const { headerMedia } = message;
 
   useEffect(() => {
     if (headerMedia) {
