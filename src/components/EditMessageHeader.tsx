@@ -71,9 +71,10 @@ const EditMessageHeader = () => {
         <Typography
           ml={2}
           flex={1}
-          textOverflow="ellipsis"
-          overflow={"hidden"}
           maxWidth={100}
+          textOverflow="ellipsis"
+          whiteSpace="nowrap"
+          overflow="hidden"
         >
           {headerMedia?.name}
         </Typography>

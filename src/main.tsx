@@ -5,6 +5,12 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { blueGrey } from "@mui/material/colors";
 import { MessageContextProvider } from "./context/messageContext.tsx";
 import App from "./App.tsx";
+import { pdfjs } from "react-pdf";
+
+pdfjs.GlobalWorkerOptions.workerSrc = new URL(
+  "pdfjs-dist/build/pdf.worker.min.js",
+  import.meta.url
+).toString();
 
 const theme = createTheme({
   spacing: 4,

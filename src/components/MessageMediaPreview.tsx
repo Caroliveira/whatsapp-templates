@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import { MessageContext } from "../context/messageContext";
 import { MessageDivider, MessageTitle } from "./MessageExample.styled";
+import { Document, Page } from "react-pdf";
 
 const mediaStyle = {
   width: "100%",
@@ -36,7 +37,13 @@ const MessageMediaPreview = () => {
     if (mediaType.includes("video")) {
       return <video controls src={previewUrl} style={mediaStyle} />;
     }
-    return <></>;
+    return (
+      <Box height={120} overflow="hidden" borderRadius={2}>
+        <Document file={headerMedia}>
+          <Page pageNumber={1} width={240} />
+        </Document>
+      </Box>
+    );
   };
 
   return (
