@@ -1,10 +1,11 @@
 import { ChangeEvent, useContext, useState } from "react";
 import { Box, Button, IconButton, Typography } from "@mui/material";
 import { Close, TextFields } from "@mui/icons-material";
-import TextFieldWithCounter from "./TextFieldWithCounter";
 import { MessageContext } from "../context/messageContext";
+import useHandleResponse from "../hooks/useHandleResponse";
 import generateTemplate from "../utils/generateTemplate";
 import sendMessageApi from "../services/messageApi";
+import TextFieldWithCounter from "./TextFieldWithCounter";
 import EditMessageButtons from "./EditMessageButtons";
 import EditMessageHeader from "./EditMessageHeader";
 import CollapsibleCard from "./CollapsibleCard";
@@ -15,21 +16,25 @@ const footerCharacterLimit = 60;
 type EditMessageProps = { onClose: () => void };
 
 const EditMessage = ({ onClose }: EditMessageProps) => {
-  const [emptyBody, setEmptyBody] = useState(false);
   const { message, setMessage, hasComponent } = useContext(MessageContext);
-
-  const handleSave = async (evt: React.FormEvent<HTMLFormElement>) => {
-    evt.preventDefault();
-    const template = generateTemplate(message, hasComponent);
-    if ("emptyBody" in template) setEmptyBody(true);
-    else await sendMessageApi(template);
-  };
+  const [emptyBody, setEmptyBody] = useState(false);
+  const { handleResponse } = useHandleResponse();
 
   const updateBody = (
     evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setMessage({ body: evt.target.value });
     setEmptyBody(false);
+  };
+
+  const handleSave = async (evt: React.FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+    const template = generateTemplate(message, hasComponent);
+    if ("emptyBody" in template) setEmptyBody(true);
+    else {
+      const response = await sendMessageApi(template);
+      handleResponse(response);
+    }
   };
 
   return (
