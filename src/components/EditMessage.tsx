@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { ChangeEvent, useContext, useState } from "react";
 import { Box, Button, IconButton, Typography } from "@mui/material";
 import { Close, TextFields } from "@mui/icons-material";
 import TextFieldWithCounter from "./TextFieldWithCounter";
@@ -15,12 +15,21 @@ const footerCharacterLimit = 60;
 type EditMessageProps = { onClose: () => void };
 
 const EditMessage = ({ onClose }: EditMessageProps) => {
+  const [emptyBody, setEmptyBody] = useState(false);
   const { message, setMessage, hasComponent } = useContext(MessageContext);
 
   const handleSave = async (evt: React.FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     const template = generateTemplate(message, hasComponent);
-    await sendMessageApi(template);
+    if ("emptyBody" in template) setEmptyBody(true);
+    else await sendMessageApi(template);
+  };
+
+  const updateBody = (
+    evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setMessage({ body: evt.target.value });
+    setEmptyBody(false);
   };
 
   return (
@@ -50,13 +59,13 @@ const EditMessage = ({ onClose }: EditMessageProps) => {
           <TextFieldWithCounter
             rows={8}
             multiline
-            required
             value={message.body}
-            onChange={(evt) => setMessage({ body: evt.target.value })}
+            onChange={updateBody}
             placeholder="Enter text"
             limit={bodyCharacterLimit}
+            error={emptyBody}
+            helperText={emptyBody ? "Please fill out this field" : ""}
           />
-          <Button sx={{ mt: 1 }}>Add variable</Button>
         </CollapsibleCard>
 
         <CollapsibleCard

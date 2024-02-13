@@ -2,12 +2,18 @@ import { HasComponentType, MessageType } from "../context/messageContext";
 import { TemplateType } from "../services/messageApi";
 import { ComponentParameterEnum, ComponentTypeEnum } from "./enums";
 
+type ErrorReturnType = { emptyBody: boolean };
+
+type GenerateTemplateReturnType = TemplateType | ErrorReturnType;
+
 const generateTemplate = (
   message: MessageType,
   hasComponent: HasComponentType
-) => {
+): GenerateTemplateReturnType => {
   // TO DO: It needs name, language, phone number id and auth token, where do I get that?
   // TO DO: Buttons and footer: to be better defined
+
+  if (!message.body.trim()) return { emptyBody: true };
 
   const template: TemplateType = {
     name: "template name",
