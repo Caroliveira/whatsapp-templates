@@ -6,6 +6,7 @@ import connectlyLogo from "/connectly.svg";
 const NavigationBar = () => {
   return (
     <Box
+      component="aside"
       height="100vh"
       display="flex"
       flexDirection="column"

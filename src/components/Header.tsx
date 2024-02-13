@@ -12,7 +12,7 @@ const Header = () => {
         <Typography component="h1" variant="body1" flex={1}>
           Create a Campaign
         </Typography>
-        <IconButton>
+        <IconButton aria-hidden="true">
           <Close />
         </IconButton>
       </Toolbar>

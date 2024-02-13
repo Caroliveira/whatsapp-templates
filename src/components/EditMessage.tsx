@@ -43,7 +43,7 @@ const EditMessage = ({ onClose }: EditMessageProps) => {
         <Typography variant="h6" component="h2">
           Edit Message
         </Typography>
-        <IconButton onClick={onClose}>
+        <IconButton onClick={onClose} aria-label="Close edit message">
           <Close />
         </IconButton>
       </Box>
@@ -70,6 +70,7 @@ const EditMessage = ({ onClose }: EditMessageProps) => {
             limit={bodyCharacterLimit}
             error={emptyBody}
             helperText={emptyBody ? "Please fill out this field" : ""}
+            aria-label="Body message"
           />
         </CollapsibleCard>
 
@@ -84,6 +85,7 @@ const EditMessage = ({ onClose }: EditMessageProps) => {
             onChange={(evt) => setMessage({ footer: evt.target.value })}
             placeholder="Enter text"
             limit={footerCharacterLimit}
+            aria-label="Footer text"
           />
         </CollapsibleCard>
 

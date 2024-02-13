@@ -41,7 +41,7 @@ const CollapsibleCard = ({
 
   const renderCardTitle = () => (
     <Box display="flex" alignItems="center">
-      <Icon color="action" />
+      <Icon color="action" aria-hidden="true" />
       <Typography variant="subtitle2" mx={1}>
         {title}
       </Typography>
@@ -73,7 +73,7 @@ const CollapsibleCard = ({
         checked={expanded}
         onClick={() => setHasComponent({ [component]: !expanded })}
         aria-expanded={expanded}
-        aria-label="show more"
+        aria-label={`${expanded ? "Remove" : "Add"} ${title} component`}
       />
     );
   };

@@ -36,7 +36,10 @@ const EditMessageButtons = () => {
             alignItems="center"
           >
             <Typography>Button {i + 1}</Typography>
-            <IconButton onClick={() => removeButton(i)}>
+            <IconButton
+              onClick={() => removeButton(i)}
+              aria-label={`Remove Button ${i + 1}`}
+            >
               <DeleteOutline />
             </IconButton>
           </Box>
@@ -46,6 +49,7 @@ const EditMessageButtons = () => {
             placeholder="Enter text"
             limit={buttonCharacterLimit}
             sx={{ mb: 4 }}
+            aria-label={`Button ${i + 1} Text`}
           />
         </Box>
       ))}

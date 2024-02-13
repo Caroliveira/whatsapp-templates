@@ -47,7 +47,7 @@ const EditMessageHeader = () => {
           fullWidth
           displayEmpty
           onChange={updateHeaderType}
-          inputProps={{ "aria-label": "Headder media" }}
+          inputProps={{ "aria-label": "Header media type" }}
         >
           {Object.entries(mediaOptions).map(([key, value]) => (
             <MenuItem key={key} value={key}>
@@ -82,6 +82,7 @@ const EditMessageHeader = () => {
           <IconButton
             size="small"
             onClick={() => setMessage({ headerMedia: undefined })}
+            aria-label="Remove selected media"
           >
             <DeleteOutline />
           </IconButton>

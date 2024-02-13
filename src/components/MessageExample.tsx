@@ -2,14 +2,14 @@ import { useContext } from "react";
 import { Message } from "@mui/icons-material";
 import { grey, indigo } from "@mui/material/colors";
 import { Avatar, Box, Paper, Typography } from "@mui/material";
+import { MessageContext } from "../context/messageContext";
+import MessageMediaPreview from "./MessageMediaPreview";
 import {
   MessageBubble,
   MessageButton,
   MessageDivider,
   MessageTitle,
 } from "./MessageExample.styled";
-import { MessageContext } from "../context/messageContext";
-import MessageMediaPreview from "./MessageMediaPreview";
 
 const MessageExample = () => {
   const { message, hasComponent } = useContext(MessageContext);
@@ -17,7 +17,10 @@ const MessageExample = () => {
   return (
     <Paper sx={{ width: 304, borderRadius: 2, p: 3 }}>
       <Box display="flex" alignItems="center" sx={{ pb: 3 }}>
-        <Avatar sx={{ backgroundColor: indigo["300"], mr: 2 }}>
+        <Avatar
+          sx={{ backgroundColor: indigo["300"], mr: 2 }}
+          aria-hidden="true"
+        >
           <Message sx={{ color: "white" }} />
         </Avatar>
         <Typography variant="h6" component="h2">
