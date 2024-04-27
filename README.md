@@ -25,7 +25,7 @@ To get it up and running make sure [Node.js](https://nodejs.org/) is installed o
    ```
 2. **Navigate to the project directory**:
    ```bash
-   cd caroliveira.github.io
+   cd whatsapp-template
    ```
 3. **Install dependencies**:
    ```bash
